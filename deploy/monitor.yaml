@@ -16,7 +16,7 @@ spec:
     interval: 5s
   selector:
     matchLabels:
-       app: knet-stress
+       app.kubernetes.io/name: knet-stress
 ---
 apiVersion: v1
 kind: ConfigMap
