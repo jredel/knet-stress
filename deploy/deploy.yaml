@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: knet-stress
+  labels:
+    app.kubernetes.io/name: knet-stress
 ---
 apiVersion: v1
 kind: Service
@@ -9,10 +11,10 @@ metadata:
   name: knet-stress
   namespace: knet-stress
   labels:
-    app: knet-stress
+    app.kubernetes.io/name: knet-stress
 spec:
   selector:
-    app: knet-stress
+    app.kubernetes.io/name: knet-stress
   ports:
     - protocol: TCP
       name: web
@@ -24,12 +26,16 @@ kind: ServiceAccount
 metadata:
   name: knet-stress
   namespace: knet-stress
+  labels:
+    app.kubernetes.io/name: knet-stress
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   namespace: knet-stress
   name: knet-stress
+  labels:
+    app.kubernetes.io/name: knet-stress
 rules:
 - apiGroups: [""]
   resources: ["endpoints"]
@@ -40,6 +46,8 @@ apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: knet-stress
   namespace: knet-stress
+  labels:
+    app.kubernetes.io/name: knet-stress
 subjects:
 - kind: ServiceAccount
   name: knet-stress
@@ -55,19 +63,15 @@ metadata:
   name: knet-stress
   namespace: knet-stress
   labels:
-    app: knet-stress
+    app.kubernetes.io/name: knet-stress
 spec:
   selector:
     matchLabels:
-      app: knet-stress
+      app.kubernetes.io/name: knet-stress
   template:
     metadata:
       labels:
-        app: knet-stress
-      annotations:
-        prometheus.io/path: /metrics
-        prometheus.io/port: "6443"
-        prometheus.io/scrape: "true"
+        app.kubernetes.io/name: knet-stress
     spec:
       containers:
       - args:
@@ -103,19 +107,15 @@ metadata:
   name: knet-stress-2
   namespace: knet-stress
   labels:
-    app: knet-stress
+    app.kubernetes.io/name: knet-stress
 spec:
   selector:
     matchLabels:
-      app: knet-stress
+      app.kubernetes.io/name: knet-stress
   template:
     metadata:
       labels:
-        app: knet-stress
-      annotations:
-        prometheus.io/path: /metrics
-        prometheus.io/port: "6443"
-        prometheus.io/scrape: "true"
+        app.kubernetes.io/name: knet-stress
     spec:
       containers:
       - args:
